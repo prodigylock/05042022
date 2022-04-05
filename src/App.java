@@ -1,22 +1,32 @@
 import java.util.ArrayList;
 import java.awt.event.*;
-import javax.swing.*;
+import javax.swing.*; 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+
 
 public class App {
 
     public static void main(String[] args) throws Exception {
-        JFrame f = new JFrame("File test");
+        FileReader fr=new FileReader("src\\list.txt", StandardCharsets.UTF_8);
+        BufferedReader br=new BufferedReader(fr);    
+        String fileRow;
+        ArrayList<String> list = new ArrayList<String>();
+        while ((fileRow = br.readLine()) !=null) {
+            list.add(fileRow);
+        }
 
+        fr.close();
+        br.close();
+
+
+        JFrame f = new JFrame("File test");
         JMenuBar menubar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
 
-        ArrayList<String> list = new ArrayList<String>();
 
-        list.add("Item 1");
-        list.add("Item 2");
-        list.add("Item 3");
-        list.add("Item 4");
-        list.add("Item 5");
+        
+
 
         for (String string : list) {
             JMenuItem menuItem = new JMenuItem(string);
@@ -26,7 +36,7 @@ public class App {
                 }
             });
 
-            menu.add(string);
+            menu.add(menuItem);
         }
 
         menubar.add(menu);
